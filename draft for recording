@@ -1,0 +1,18 @@
+import sounddevice
+import time
+from datetime import datetime #for date
+from scipy.io.wavfile import write
+
+fps = 44100
+duration = 4 #record for one minute
+print("Recording...")
+recording = sounddevice.rec(int(duration*fps),samplerate=fps,channels=2)
+sounddevice.wait()
+print("Done!")
+
+now = datetime.now()
+dt_string = now.strftime("date, %d-%m-%Y time, %H-%M-%S")
+
+dt_string = dt_string +'.wav'
+print(dt_string)
+write(dt_string,fps,recording)
