@@ -9,7 +9,7 @@ html {
 body {
     margin: 0;
 
-    background-color: black;
+    background-color: #1D1B26;
     height: 100%;
 }
 
@@ -20,6 +20,7 @@ body {
     display: flex;
     justify-content: space-between;
     height: 6%;
+    min-width: 370px;
 }
 
 .header a {
@@ -59,8 +60,93 @@ body {
 
 
 
+.home_page{
+    height: 100%;
+    min-width: 810px;
+}
 
 
-.text{
-    font-size: xxx-large;
+
+.part{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+        height: 100%;
+    font-size: xx-large;
+
+}
+
+.first_text{
+    display: flex;
+    height: 35%;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+}
+
+.first_title_container{
+    height: 40%;
+}
+
+.first h3{
+    display: flex;
+    justify-content: center;
+
+}
+
+.first_img_container{
+    height: 55%;
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.first img{
+    background-color: darkkhaki;
+    height: 100%;
+    width: 100%;
+
+}
+
+
+
+
+.second{
+    background-color: #6A5495;
+}
+
+.second_title_container{
+    height: 20%;
+}
+
+.second_info{
+    height: 75%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+}
+.second_info_text {
+    width: 50%;
+
+}
+
+.second_info_text h2{
+    padding: 15%;
+}
+
+.second_info_img_container{
+    width: 50%;
+    height: 95%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.second img{
+    background-color: darkkhaki;
+    height: 100%;
+    width: 80%;
+
 }
