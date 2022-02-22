@@ -8,7 +8,6 @@ html {
 
 body {
     margin: 0;
-
     background-color: #1D1B26;
     height: 100%;
 }
@@ -21,6 +20,20 @@ body {
     justify-content: space-between;
     height: 6%;
     min-width: 370px;
+
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: all .3s ease;
+
+}
+#header.hide {
+    top: -6%;
 }
 
 .header a {
@@ -33,7 +46,6 @@ body {
     line-height: 25px;
     border-radius: 4px;
 }
-
 
 
 .links_container a:hover {
@@ -58,12 +70,11 @@ body {
 
 
 
-
-
 .home_page{
-    height: 100%;
-    min-width: 810px;
+    height: 100vh;
+    min-width: 840px;
 }
+
 
 
 
@@ -71,10 +82,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-        height: 100%;
+    justify-content: center;
     font-size: xx-large;
+    height: 100%;
 
 }
+
 
 .first_text{
     display: flex;
@@ -127,14 +140,28 @@ body {
     align-items: center;
     flex-direction: row;
 }
+
 .second_info_text {
     width: 50%;
 
 }
 
 .second_info_text h2{
-    padding: 15%;
+    padding: 14%;
 }
+
+
+@media screen and (max-width : 1404px)
+{
+    .second_info
+    {
+        font-size: x-large;
+    }
+    .second_info_text h2{
+        padding: 10%;
+    }
+}
+
 
 .second_info_img_container{
     width: 50%;
@@ -182,24 +209,36 @@ body {
     align-items: center;
 }
 
+.circle_container h5{
+    width: 50%;
+}
+
+.third_middle{
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .circle{
     height: 30%;
-    width: 30%;
-    border-radius: 100%;
+    width: 20%;
 }
 
 .third img{
     background-color: darkkhaki;
     height: 100%;
     width: 100%;
-
+    border-radius: 100%;
 }
+
 .third_down{
     display: flex;
     justify-content: center;
-    width: 80%;
+    width: 100%;
 }
+
+
 
 
 

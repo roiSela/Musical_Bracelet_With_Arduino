@@ -1,0 +1,5 @@
+python: 
+1 - build the gui apllication with pygame and python. a circle of the sounds. that lights up accordingly + when the user wants to start recording he can chose the length of recording.
+2 - upload recordings to server. 
+arduino: 
+1 - integrate the sparkfun code into the core code of arduino. 
