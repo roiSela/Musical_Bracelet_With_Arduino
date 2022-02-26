@@ -1,8 +1,44 @@
-
 #include <Wire.h>
 #include <MPU6050.h>
 
 MPU6050 mpu;
+
+
+//midi stuff:
+
+#include <SoftwareSerial.h>
+
+//vars:
+SoftwareSerial mySerial(2, 3); // RX, TX
+
+byte note = 0; //The MIDI note value to be played
+byte resetMIDI = 4; //Tied to VS1053 Reset line
+byte ledPin = 13; //MIDI traffic inidicator
+int lengthOfSoundInMiliSeconds = 1000;
+
+//now we will set the values in such a way that for changing octave one will only need to change the DO SOUND (:
+int LowDo_sound = 60;
+int Re_sound = LowDo_sound + 2;
+int Mi_sound = Re_sound + 2;
+int Fa_sound = Mi_sound + 1;
+int Sol_sound = Fa_sound + 2;
+int La_sound = Sol_sound + 2;
+int Si_sound =   La_sound + 2;
+int HighDo_sound = Si_sound + 1;
+
+//we will support 3 types of instruments
+int InstrumentArrayIndex = 0;
+int instrument[3] = {0, 1, 2}; //TO DO: need to check which instruments are 0 1 and 2
+
+
+//funcs:
+void playSound(int soundToPlay);
+void noteOff(byte channel, byte note, byte release_velocity);
+void noteOn(byte channel, byte note, byte attack_velocity);
+void talkMIDI(byte cmd, byte data1, byte data2);
+
+
+//end of midi stuff
 
 
 
@@ -51,30 +87,35 @@ void setup()
   ///done with init
 
   messageToBegin();
+
+  //Setup soft serial for MIDI control
+  mySerial.begin(31250);
+
+  //Reset the VS1053
+  pinMode(resetMIDI, OUTPUT);
+  digitalWrite(resetMIDI, LOW);
+  delay(100);
+  digitalWrite(resetMIDI, HIGH);
+  delay(100);
+  talkMIDI(0xB0, 0x07, 120); //0xB0 is channel message, set channel volume to near max (127)
 }
 
 // L O O P
 
 void loop()
 {
+  //set instrument bank and current instrument to play:
+  talkMIDI(0xB0, 0, 0x00); //Default bank GM1
+  talkMIDI(0xC0, instrument[InstrumentArrayIndex], 0); //Set instrument number. 0xC0 is a 1 data byte command
+  //end
 
-  //Vector normAccel = mpu.readNormalizeAccel();
-
-  //Serial.print("\n Xnorm = ");
-  // Serial.print(normAccel.XAxis);
-  // Serial.print("\n Ynorm = ");
-  // Serial.print(normAccel.YAxis);
-  //Serial.print(" Znorm = ");
-  // Serial.println(normAccel.ZAxis);
-
-
-  if(checkIfRecord()) // checking if board was fliped (z = -10)
+  if (checkIfRecord()) // checking if board was fliped (z = -10)
   {
     Serial.println("record");
     delay(3000); //we wait three seconds to prevent constant printing of the record.
-  }else
+  } else
   {
-      checkIfToPlaySound();
+    checkIfToPlaySound();
   }
   delay(timeToWaitForEachLoop);
 }
@@ -90,7 +131,8 @@ void checkIfToPlaySound()
     updateSounds();
     if ( LowDo )
     {
-      Serial.println("LowDo");
+      Serial.println("LowDo"); //sends message to the python code throgh the same port
+      playSound(LowDo_sound); //making the actual sound
     } else
     {
       initSounds(); //needs to init them back to false
@@ -104,6 +146,7 @@ void checkIfToPlaySound()
     if (Re )
     {
       Serial.println("Re");
+      playSound(Re_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -116,6 +159,7 @@ void checkIfToPlaySound()
     if ( Mi )
     {
       Serial.println("Mi");
+      playSound(Mi_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -128,6 +172,7 @@ void checkIfToPlaySound()
     if ( Fa )
     {
       Serial.println(" Fa");
+      playSound(Fa_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -140,6 +185,7 @@ void checkIfToPlaySound()
     if ( Sol )
     {
       Serial.println("Sol");
+      playSound(Sol_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -152,6 +198,7 @@ void checkIfToPlaySound()
     if ( La )
     {
       Serial.println("La");
+      playSound(La_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -164,6 +211,7 @@ void checkIfToPlaySound()
     if ( Si )
     {
       Serial.println("Si");
+      playSound(Si_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -176,6 +224,7 @@ void checkIfToPlaySound()
     if ( HighDo)
     {
       Serial.println("HighDo");
+      playSound(HighDo_sound);
     } else
     {
       initSounds(); //needs to init them back to false
@@ -277,4 +326,41 @@ void checkSettings()
   Serial.println(mpu.getAccelOffsetZ());
 
   Serial.println();
+}
+
+
+
+void playSound(int soundToPlay)
+{
+  noteOn(0, soundToPlay, 60);
+  delay(lengthOfSoundInMiliSeconds);
+
+  //Turn off the note with a given off/release velocity
+  noteOff(0, soundToPlay, 60);
+  delay(50);
+}
+
+//Send a MIDI note-on message.  Like pressing a piano key
+//channel ranges from 0-15
+void noteOn(byte channel, byte note, byte attack_velocity) {
+  talkMIDI( (0x90 | channel), note, attack_velocity);
+}
+
+//Send a MIDI note-off message.  Like releasing a piano key
+void noteOff(byte channel, byte note, byte release_velocity) {
+  talkMIDI( (0x80 | channel), note, release_velocity);
+}
+
+//Plays a MIDI note. Doesn't check to see that cmd is greater than 127, or that data values are less than 127
+void talkMIDI(byte cmd, byte data1, byte data2) {
+  digitalWrite(ledPin, HIGH);
+  mySerial.write(cmd);
+  mySerial.write(data1);
+
+  //Some commands only have one data byte. All cmds less than 0xBn have 2 data bytes
+  //(sort of: http://253.ccarh.org/handout/midiprotocol/)
+  if ( (cmd & 0xF0) <= 0xB0)
+    mySerial.write(data2);
+
+  digitalWrite(ledPin, LOW);
 }
