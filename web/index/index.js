@@ -43,7 +43,7 @@ $(document).ready(function() {
             let sectionTop = section.position().top - $(window).scrollTop();
             let sectionBottom = section.position().top - $(window).scrollTop() + section.height();
             console.log("sectionTop: "+sectionTop+",sectionBottom:  "+sectionBottom+", headerTop: "+ headerTop+ ", headerBottom: "+headerBottom);
-            if (sectionTop <=50) {
+            if (sectionTop <=50W) {
                 header.css("background-color", "#1D1B26");
             } else {
                 header.css("background-color", "#6A5495");
