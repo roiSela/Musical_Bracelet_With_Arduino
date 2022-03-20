@@ -1,8 +1,0 @@
-python: 
-1 - build the gui apllication with pygame and python. a circle of the sounds. that lights up accordingly + when the user wants to start recording he can chose the length of recording.
-1.5 - if the user played a sound, then the coresponding text will be light up with red, and then the python program "sleeps" for a few seconds to give the sound time to breath
-, otherwise, all sound text are of blue color.
-2 - upload recordings to server. 
-arduino:
-1- build the arduino application based on the code benny sent.
-2 - integrate the sparkfun code into the core code of arduino. 

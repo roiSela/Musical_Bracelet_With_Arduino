@@ -1,4 +1,0 @@
-make the circels a circle
-make the circle function
-add photos
-make header links to function

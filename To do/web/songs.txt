@@ -1,2 +1,0 @@
-make pic show when button pressed
-make header active
