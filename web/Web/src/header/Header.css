@@ -1,0 +1,60 @@
+
+.header {
+    overflow: hidden;
+    background-color: #6A5495;
+    padding: 3px 20px;
+    display: flex;
+    justify-content: space-between;
+    height: 6%;
+    min-width: 370px;
+
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    transition: all .3s ease;
+
+}
+#header.hide {
+    top: -6%;
+}
+
+.header.black{
+    background-color: #1D1B26;
+}
+
+.header a {
+    float: left;
+
+    text-align: center;
+    padding: 12px;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 25px;
+    border-radius: 4px;
+}
+
+
+
+.links_container a:hover {
+    background-color: #270082;
+    cursor: pointer;
+}
+
+.name:hover{
+
+    cursor: pointer;
+}
+
+
+
+
+.name_container{
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
