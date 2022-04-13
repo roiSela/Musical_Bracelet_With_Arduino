@@ -49,16 +49,16 @@ def chooseTimeToRecord():
         # Background Image
         screen.blit(emptyBackground, (0, 0))
         RecordingMessage = font.render("Choose the time to record:", True, GREEN)
-        screen.blit(RecordingMessage, (400, 400))
+        screen.blit(RecordingMessage, (0, 200))
 
         moveToTheRightMessage = font.render("Move bracelet right to increase the record time.", True, GREEN)
-        screen.blit(moveToTheRightMessage, (600, 400))
+        screen.blit(moveToTheRightMessage, (0, 300))
 
-        moveToTheLeftMessage = font.render("Move bracelet left to increase the record time.", True, GREEN)
-        screen.blit(moveToTheLeftMessage, (0, 400))
+        moveToTheLeftMessage = font.render("Move bracelet left to decrease the record time.", True, GREEN)
+        screen.blit(moveToTheLeftMessage, (0, 350))
 
         currentRecordTimeMessage = font.render("The current record time is: "+str(timeToRecord) + "seconds.", True, GREEN)
-        screen.blit(currentRecordTimeMessage, (0, 400))
+        screen.blit(currentRecordTimeMessage, (0,500))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
