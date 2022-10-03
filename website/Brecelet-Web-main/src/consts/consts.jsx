@@ -1,0 +1,3 @@
+export const SET_CURRNT_POST = "SET_CURRENT_POST"
+export const SET_PLAYING = "SET_PLAYING"
+

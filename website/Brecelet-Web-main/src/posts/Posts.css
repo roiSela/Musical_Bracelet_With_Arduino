@@ -1,0 +1,16 @@
+.Posts{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.posts_container{
+    display: flex;
+    height: 80%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 70%;
+}

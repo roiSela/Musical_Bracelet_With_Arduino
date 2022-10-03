@@ -1,0 +1,65 @@
+.Songs {
+    height: 100vh;
+}
+
+.image_page{
+    height: 100%;
+    background-color: #1D1B26;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image_container{
+    height: 70%;
+    width: 60%;
+
+}
+
+.image_container img{
+    height: 100%;
+    width: 100%;
+}
+
+.page{
+    height: 80%;
+    min-width: 840px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 9%;
+}
+
+.instructions{
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.songs_container{
+    height: 100%;
+    width: 55%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.song_container{
+    height: 17%;
+    width: 22%;
+    border: #6A5495 solid 0.1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.song_container:hover{
+    background-color: #6A5495;
+    border: #dddddd solid 0.1px;
+}
+
+
+
