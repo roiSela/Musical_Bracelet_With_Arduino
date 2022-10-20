@@ -7,4 +7,4 @@ one named arduino python projrct that contains ,python code and pictures only, f
 
 one named arduino files for the 2 arduino's, transmiter and reciver. (and mpu6050 library which is external lib for the accelemtor)
 
-and one for the webstie & server.
+and one named website for the webstie & server, written in react and nodejs.
